@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_COMPILER clang++)
 
 # source files for ASCII Increment
-set(SRC_FILES_AI src/ascii/increment.cpp src/ascii/increment.h src/header.h src/func.cpp)
+set(SRC_FILES_AI src/increment/increment.cpp src/increment/increment.h src/increment/func.cpp src/header.h src/func.cpp)
 
 # source files for ASCII Shift
 # set(SRC_FILES_AS src/ascii/shift.cpp src/header.h src/img-headers.cpp)
