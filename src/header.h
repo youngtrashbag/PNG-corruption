@@ -6,15 +6,20 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <vector>
+#include <iterator>
+#include <algorithm>
 
 #ifndef _HEADER_H_
 #define _HEADER_H_
 
 // defines
-#define IMAGE_1 "../docs/sample.png"
-#define IMAGE_2 "../docs/lena.png"
+#define IMAGE_1 "sample.png"
+#define IMAGE_2 "lena.png"
 
 // functions
-std::string validFilename(char* argv[]);
+std::string validFilename(std::string cmdParam);
+unsigned int fileSize(std::fstream &file);
+
 #endif //_HEADER_H_
 

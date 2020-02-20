@@ -9,14 +9,15 @@
 using namespace std;
 
 // check if file exists, if yes return the filename, if no return the filename in docs
-string validFilename(char* argv[])
+string validFilename(string cmdParam)
 {
-	ifstream file(argv[1]);
+	string filename = string(cmdParam);
+	ifstream file(filename);
 
 	if(file.good())
 	{
 		file.close();
-		return argv[1];
+		return filename;
 	}
 	else
 	{
@@ -26,8 +27,12 @@ string validFilename(char* argv[])
 	}
 }
 
-void saveImage(fstream &file)
+unsigned int fileSize(fstream &file)
 {
-	//save de iamge
+	file.seekg(0, ios::end);
+	unsigned int size = file.tellg();
+	file.seekg(0, ios::beg);
+
+	return size;
 }
 
