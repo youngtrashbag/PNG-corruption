@@ -4,11 +4,12 @@ project(image-corruption)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_COMPILER clang++)
 
-# source file liest
-set(SRC_FILES src/corruption.cpp src/header.h src/img-headers.cpp)
+# source files for ASCII Increment
+set(SRC_FILES_AI src/ascii/increment.cpp src/ascii/increment.h src/header.h src/func.cpp)
 
-# my goal in the end is to have multiple binaries, which execute different functions
-# for example an ascii code incrementor from a=>97 to b=>98
+# source files for ASCII Shift
+# set(SRC_FILES_AS src/ascii/shift.cpp src/header.h src/img-headers.cpp)
 
-add_executable(image-corruption ${SRC_FILES})
+add_executable(ascii-increment ${SRC_FILES_AI})
+# add_executable(ascii-shift ${SRC_FILES_AS})
 
