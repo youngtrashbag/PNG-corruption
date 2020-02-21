@@ -4,4 +4,5 @@
 - [ ] organise files some more
 - [ ] complete the increment function to increment unsigned char buffer
 - [ ] skip header when incrementing chars of image
+- [ ] ignore critical chunks
 

@@ -15,7 +15,8 @@
 
 // defines
 #define IMAGE_1 "sample.png"
-#define IMAGE_2 "lena.png"
+#define IMAGE_2 "png.png"
+#define IMAGE_3 "lena.png"
 
 // functions
 std::string validFilename(std::string cmdParam);
