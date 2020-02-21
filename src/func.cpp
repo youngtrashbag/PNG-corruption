@@ -26,3 +26,8 @@ string validFilename(char* argv[])
 	}
 }
 
+void saveImage(fstream &file)
+{
+	//save de iamge
+}
+
