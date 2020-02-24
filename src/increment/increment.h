@@ -10,6 +10,7 @@
 #define _ASCII_INCREMENT_H_
 
 // defines
+#define DEFAULT_INCREMENT_AMOUNT 1
 
 // functions
 void incrementVector(std::vector<unsigned char> &imgVector);
