@@ -14,14 +14,14 @@ void incrementBuffer(vector<unsigned char> &imgVector, unsigned int incrementati
 
 	//1. skip header
 	//i know that png header is 4bytes and 1 unsigned char is 1byte; therefore
-	it + 4;
+	it += 4;
 
 	//2. increment other chars
-	for(it; it != imgVector.end(); it++)
+	for(; it != imgVector.end(); it++)
 	{
-		if(*it != 0)
+		if(*it >= 32 && *it < 126)
 		{
-			*it + incrementation;
+			*it += incrementation;
 		}
 	}
 }
