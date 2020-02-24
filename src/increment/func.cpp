@@ -13,7 +13,7 @@ void incrementBuffer(vector<unsigned char> &imgVector, unsigned int incrementati
 	vector<unsigned char>::iterator it = imgVector.begin();
 
 	//1. skip header
-	//i know that png header is 4bytes and 1 unsigned char is 1byte; therefor
+	//i know that png header is 4bytes and 1 unsigned char is 1byte; therefore
 	it + 4;
 
 	//2. increment other chars
