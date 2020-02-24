@@ -45,6 +45,10 @@ int main(int argc, char* argv[])
 	cout << "Writing changes to new file: " << newFilename << endl;
 	copy(buffer.begin(), buffer.end(), ostreambuf_iterator<char>(newImage));
 
+	char chunkType[] = {'I', 'D', 'A', 'T', '\t'};
+	int test = GetChunkBuffer(imageFile, chunkType);
+	cout << "IDAT CHUNK IS: " << test << " bytes in length i think." << endl;
+
 	newImage.close();
 
 	return 0;

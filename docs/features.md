@@ -4,7 +4,7 @@
 
 ## Future
 
-- ASCII Incrementation
+- ASCII Increment
 
 	e.g.
 

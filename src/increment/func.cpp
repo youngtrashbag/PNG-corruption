@@ -26,3 +26,45 @@ void incrementBuffer(vector<unsigned char> &imgVector, unsigned int incrementati
 	}
 }
 
+//return buffer to chunk from image
+//vector<unsigned char>* GetChunkBuffer(fstream &imageFile, char[4] chunkName)
+int GetChunkBuffer(ifstream &imageFile, char chunkName[4])
+{
+	//contains the newly opened image as a whole
+	vector<unsigned char> imageBuffer(istreambuf_iterator<char>(imageFile), {});
+
+	//pointer "array" type of thing
+	vector<unsigned char>::iterator bufferIterator = imageBuffer.begin();
+
+	for(; bufferIterator != imageBuffer.end(); bufferIterator++)
+	{
+		if(*bufferIterator == chunkName[0])
+		{
+			//i think this makes the program faster
+			if(*(bufferIterator + 1) == chunkName[1] &&
+				*(bufferIterator + 2) == chunkName[2] &&
+				*(bufferIterator + 3) == chunkName[3])
+			{
+				//chunk name matches
+				//get length of chunk
+				unsigned char len[4] = { *(bufferIterator - 4),
+						*(bufferIterator - 3),
+						*(bufferIterator - 2),
+						*(bufferIterator - 1)
+						};
+
+				unsigned int chunkLength = 0;
+
+				for(int i = 0; i <= 4; i++)
+				{
+					chunkLength += len[i] << 1;
+				}
+
+				return chunkLength;
+			}
+		}
+
+	}
+	
+}
+

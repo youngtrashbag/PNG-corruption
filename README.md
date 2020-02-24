@@ -2,13 +2,12 @@
 
 ## Introduction
 
-This is just a basic tool, that can corrupt Images and therefor create Interesting Visual Artifacts.
+This is just a basic tool, that can corrupt Images and therefore create Interesting Visual Artifacts.
 
 ## Prerequisites
 
 - Cmake
 - Clang or GCC
-<!-- - Working OpenCV installation -->
 - An Image you want to Corrupt
 
 ## Installation
@@ -16,18 +15,18 @@ This is just a basic tool, that can corrupt Images and therefor create Interesti
 1. `cd bin`
 2. `cmake ..`
 3. `make`
-4. Run any binary with or without an image (in case you don't use an image, the default image will be used)
+4. Run any binary with or without an image (in case you don't use an image, the default image will be used)  
+`./increment`  
 `./increment my-image.png`
 
 ## License
 
-GNU General Public License v3.0
+[GNU General Public License v3.0](./LICENSE)
 
 ## Special Thanks
 
 I would like to thank the following:
 
-- Coulor & Eyesight
-- OpenCV
+- Colour & Eyesight
 - Images (especially the CEO of PNG)
 
