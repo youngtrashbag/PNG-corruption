@@ -40,8 +40,8 @@ int main(int argc, char* argv[])
 	imageFile.close();
 
 	//do things with buffer
+	incrementBuffer(buffer, 1);
 	//save buffer in image
-
 	cout << "Writing changes to new file: " << newFilename << endl;
 	copy(buffer.begin(), buffer.end(), ostreambuf_iterator<char>(newImage));
 

@@ -19,3 +19,15 @@ This is just a basic tool, that can corrupt Images and therefor create Interesti
 4. Run any binary with or without an image (in case you don't use an image, the default image will be used)
 `./increment my-image.png`
 
+## License
+
+GNU General Public License v3.0
+
+## Special Thanks
+
+I would like to thank the following:
+
+- Coulor & Eyesight
+- OpenCV
+- Images (especially the CEO of PNG)
+
