@@ -21,7 +21,7 @@ class Chunk
 
 	public:
 		// constructor
-		Chunk(unsigned int pLength);
+		Chunk(char[5] pType);
 		
 		// get
 		unsigned int GetLength();

@@ -8,9 +8,9 @@
 
 # include "chunk.h"
 
-Chunk::Chunk(unsigned int pLength)
+Chunk::Chunk(char[5] pType)
 {
-	_length = pLength;
+	_type = pType;
 }
 
 unsigned int Chunk::GetLength()
@@ -74,5 +74,4 @@ int GetChunkBuffer(ifstream &imageFile, char chunkName[4])
 		}
 	}
 }
-
 
