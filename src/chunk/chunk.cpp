@@ -34,13 +34,9 @@ int Chunk::GetCRC()
 }
 
 //other functions
-void Chunk::Load(ifstream &pFile)
+bool Chunk::Load(ifstream &pFile)
 {
 	vector<unsigned char> fileBuffer(istreambuf_iterator<char>(pFile), {});
-
-	// file has been loaded into buffer
-	// it can be closed now
-	pFile.close();
 
 	vector<unsigned char>::iterator itFinder = fileBuffer.begin();
 	itFinder += 8; // advance 8 bytes, because of PNG Signature
@@ -49,6 +45,7 @@ void Chunk::Load(ifstream &pFile)
 	
 	bool chunkIsPresent = false;
 	unsigned char charChunkSize[4];
+	unsigned char charCRC[4];
 
 	for(; itFinder != fileBuffer.end(); itFinder++)
 	{
@@ -71,6 +68,16 @@ void Chunk::Load(ifstream &pFile)
 			};
 			
 			memcpy(charChunkSize, charSizeArr, sizeof charChunkSize);
+
+			// get size of chunk
+			unsigned char charCRCArray[] = {
+				*(itFinder - 4),
+				*(itFinder - 3),
+				*(itFinder - 2),
+				*(itFinder - 1)
+			};
+
+			itPos = itFinder;
 		}
 	}
 
@@ -85,12 +92,26 @@ void Chunk::Load(ifstream &pFile)
 			_length += charChunkSize[i] << 1;
 		}
 
-		cout << "Chunk: " << _type << " has been found with size: " << _length << endl;
+		// get the CRC
+		itFinder = itPos;
+		//3 becuase its position is at the first byte of the type
+		itFinder += 3 + _length;
+		_cylicRedundancyCheck = {
+			*(itFinder+1),
+			*(itFinder+2),
+			*(itFinder+3),
+			*(itFinder+4)
+		};
+
+		cout << "Chunk: " << _type << " has been found with size: " << _length;
+		cout << " and CRC is: " << _cylicRedundancyCheck << endl;
+		return true;
 
 	}
 	else
 	{
 		cout << "Chunk: " << _type << " could not be found" << endl;
+		return false;
 	}
 
 
@@ -99,47 +120,4 @@ void Chunk::Load(ifstream &pFile)
 void Chunk::ReCalculateCRC()
 {
 }
-
-/*
-// return buffer to chunk from image
-// TODO: this needs to return a vector<unsigned char>
-// TODO: also this is the GetData function, just needs to be recoded
-int GetChunkBuffer(ifstream &imageFile, char chunkName[4])
-{
-	//contains the newly opened image as a whole
-	vector<unsigned char> imageBuffer(istreambuf_iterator<char>(imageFile), {});
-
-	//pointer "array" type of thing
-	vector<unsigned char>::iterator bufferIterator = imageBuffer.begin();
-
-	for(; bufferIterator != imageBuffer.end(); bufferIterator++)
-	{
-		if(*bufferIterator == chunkName[0])
-		{
-			//i think this makes the program faster
-			if(*(bufferIterator + 1) == chunkName[1] &&
-				*(bufferIterator + 2) == chunkName[2] &&
-				*(bufferIterator + 3) == chunkName[3])
-			{
-				//chunk name matches
-				//get length of chunk
-				unsigned char len[4] = { *(bufferIterator - 4),
-						*(bufferIterator - 3),
-						*(bufferIterator - 2),
-						*(bufferIterator - 1)
-						};
-
-				unsigned int chunkLength = 0;
-
-				for(int i = 0; i <= 4; i++)
-				{
-					chunkLength += len[i] << 1;
-				}
-
-				return chunkLength;
-			}
-		}
-	}
-}
-*/
 

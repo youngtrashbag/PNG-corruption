@@ -56,6 +56,7 @@ int main(int argc, char* argv[])
 	Chunk* idatChunk = new Chunk(chunkType);
 
 	idatChunk->Load(imageFile);
+	imageFile.close();
 
 	return 0;
 }

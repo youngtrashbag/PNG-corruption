@@ -30,7 +30,7 @@ class Chunk
 		int GetCRC();
 
 		//other functions
-		void Load(std::ifstream &pFile);
+		bool Load(std::ifstream &pFile);
 		void ReCalculateCRC();
 };
 
