@@ -7,8 +7,8 @@ Here I will document infos on chunks, so I won't forget them.
 ### Length
 
 4 byte unsigned int. Gives Number of Bytes in the Chunks field.
-Counts **only** the the [Data Field](#Chunk-Data), **not** [itself](#Length)
-the Chunk [Type](#Chunk-Type) Code or the [CRC](#CRC). Zero is a valid length.
+Counts **only** the the [Data Field](#chunk-data), **not** [itself](#length)
+the Chunk [Type](#chunk-type) Code or the [CRC](#crc). Zero is a valid length.
 
 ### Chunk Type
 

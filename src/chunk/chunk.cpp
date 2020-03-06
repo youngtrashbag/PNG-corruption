@@ -48,6 +48,7 @@ void Chunk::Load(ifstream &pFile)
 	// find the ChunkType
 	
 	bool chunkIsPresent = false;
+	unsigned char charChunkSize[4];
 
 	for(; itFinder != fileBuffer.end(); itFinder++)
 	{
@@ -60,12 +61,32 @@ void Chunk::Load(ifstream &pFile)
 		{
 			// the chunk type has been found
 			chunkIsPresent = true;
+
+			// get size of chunk
+			unsigned char charSizeArr[] = {
+				*(itFinder - 4),
+				*(itFinder - 3),
+				*(itFinder - 2),
+				*(itFinder - 1)
+			};
+			
+			memcpy(charChunkSize, charSizeArr, sizeof charChunkSize);
 		}
 	}
 
 	if(chunkIsPresent)
 	{
-		cout << "Chunk: " << _type << " has been found" << endl;
+
+		// calculate the 4byte uint charSize
+		_length = 0;
+
+		for(int i = 0; i <= 4; i++)
+		{
+			_length += charChunkSize[i] << 1;
+		}
+
+		cout << "Chunk: " << _type << " has been found with size: " << _length << endl;
+
 	}
 	else
 	{
