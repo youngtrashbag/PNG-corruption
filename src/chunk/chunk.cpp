@@ -6,22 +6,26 @@
  * 	All Functions related to Chunks
  */
 
-# include "chunk.h"
+#include "chunk.h"
 
-Chunk::Chunk(char[5] pType)
+using namespace std;
+
+Chunk::Chunk(char pType[5])
 {
-	_type = pType;
+	strcpy(_type, pType);
+	//loading the Chunk, becuase the Type is known
+	//Chunk::Load(pFile);
 }
 
 unsigned int Chunk::GetLength()
 {
 }
 
-char[5] Chunk::GetType()
+/*char[5] Chunk::GetType()
 {
-}
+}*/
 
-&std::vector<unsigned char> Chunk::GetData()
+std::vector<unsigned char> &Chunk::GetData()
 {
 }
 
@@ -30,10 +34,52 @@ int Chunk::GetCRC()
 }
 
 //other functions
+void Chunk::Load(ifstream &pFile)
+{
+	vector<unsigned char> fileBuffer(istreambuf_iterator<char>(pFile), {});
+
+	// file has been loaded into buffer
+	// it can be closed now
+	pFile.close();
+
+	vector<unsigned char>::iterator itFinder = fileBuffer.begin();
+	itFinder += 8; // advance 8 bytes, because of PNG Signature
+
+	// find the ChunkType
+	
+	bool chunkIsPresent = false;
+
+	for(; itFinder != fileBuffer.end(); itFinder++)
+	{
+		if(
+			*(itFinder) == (unsigned) _type[0] &&
+			*(itFinder+1) == (unsigned) _type[1] &&
+			*(itFinder+2) == (unsigned) _type[2] &&
+			*(itFinder+3) == (unsigned) _type[3]
+		  )
+		{
+			// the chunk type has been found
+			chunkIsPresent = true;
+		}
+	}
+
+	if(chunkIsPresent)
+	{
+		cout << "Chunk: " << _type << " has been found" << endl;
+	}
+	else
+	{
+		cout << "Chunk: " << _type << " could not be found" << endl;
+	}
+
+
+}
+
 void Chunk::ReCalculateCRC()
 {
 }
 
+/*
 // return buffer to chunk from image
 // TODO: this needs to return a vector<unsigned char>
 // TODO: also this is the GetData function, just needs to be recoded
@@ -74,4 +120,5 @@ int GetChunkBuffer(ifstream &imageFile, char chunkName[4])
 		}
 	}
 }
+*/
 

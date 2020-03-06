@@ -14,22 +14,23 @@ class Chunk
 		// lenth/size of the chunk in bytes (big endian)
 		unsigned int _length;
 		// chunk type, such as "IDAT"
-		char[5] _type;
+		char _type[5];
 		// reference to chunk data
-		&std::vector<unsigned char> _data;
+		//std::vector<unsigned char> &_data;
 		int _cylicRedundancyCheck;
 
 	public:
 		// constructor
-		Chunk(char[5] pType);
+		Chunk(char pType[5]);
 		
 		// get
 		unsigned int GetLength();
-		char[5] GetType();
-		&std::vector<unsigned char> GetData();
+		//char[5] GetType();
+		std::vector<unsigned char> &GetData();
 		int GetCRC();
 
 		//other functions
+		void Load(std::ifstream &pFile);
 		void ReCalculateCRC();
-}
+};
 

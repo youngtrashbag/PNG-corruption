@@ -5,6 +5,7 @@
  */
 
 #include "header.h"
+#include "chunk/chunk.h"
 
 using namespace std;
 
@@ -29,7 +30,7 @@ int main(int argc, char* argv[])
 	ifstream imageFile;
 	imageFile.open(filename, ios::binary);
 
-	cout << "Opening file: " << filename << endl;
+	/*cout << "Opening file: " << filename << endl;
 
 	ofstream newImage;
 	newFilename = "inc-" + filename;
@@ -40,16 +41,21 @@ int main(int argc, char* argv[])
 	imageFile.close();
 
 	//do things with buffer
-	incrementBuffer(buffer, DEFAULT_INCREMENT_AMOUNT);
+	//incrementBuffer(buffer, DEFAULT_INCREMENT_AMOUNT);
 	//save buffer in image
 	cout << "Writing changes to new file: " << newFilename << endl;
 	copy(buffer.begin(), buffer.end(), ostreambuf_iterator<char>(newImage));
 
-	char chunkType[] = {'I', 'D', 'A', 'T', '\t'};
+	char chunkType[] = {'I', 'D', 'A', 'T', '\0'};
 	int test = GetChunkBuffer(imageFile, chunkType);
 	cout << "IDAT CHUNK IS: " << test << " bytes in length i think." << endl;
 
-	newImage.close();
+	newImage.close();*/
+
+	char chunkType[] = {'I', 'D', 'A', 'T', '\0'};
+	Chunk* idatChunk = new Chunk(chunkType);
+
+	idatChunk->Load(imageFile);
 
 	return 0;
 }
