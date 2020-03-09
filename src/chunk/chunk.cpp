@@ -54,17 +54,19 @@ bool Chunk::Load(ifstream &pFile)
 		  )
 		{
 			// the chunk type has been found
+			
+			// position for length
+			vector<unsigned char>::iterator itLength = itFinder - 4;
 
 			// create new iterator, to not mess up the basic one
 			// the tempFinder is now located at first char of chunkName
-			vector<unsigned char>::iterator tempFinder = itFinder;
 
 			// get length of chunk
 			unsigned char charChunkSize[] = {
-				*(tempFinder - 4),
-				*(tempFinder - 3),
-				*(tempFinder - 2),
-				*(tempFinder - 1)
+				*(itLength),
+				*(itLength + 1),
+				*(itLength + 2),
+				*(itLength + 3)
 			};
 
 			_length = 0;
@@ -72,26 +74,33 @@ bool Chunk::Load(ifstream &pFile)
 			for(int i = 0; i <= 4; i++)
 			{
 				_length += charChunkSize[i] << 1;
+				//_length += charChunkSize[i] << i;
 			}
 
-			// remaining 3 chars of chunkName
-			tempFinder += 3;
-
-			//create vector buffer of the chunkData please
-
-			tempFinder += _length;
+			// position for the CRC
+			vector<unsigned char>::iterator itCRC = itFinder + 3 + _length;
 
 			// get size of chunk
 			unsigned char charCRCArray[] = {
-				*(tempFinder - 4),
-				*(tempFinder - 3),
-				*(tempFinder - 2),
-				*(tempFinder - 1)
+				*(itCRC),
+				*(itCRC + 1),
+				*(itCRC + 2),
+				*(itCRC + 3)
 			};
 
 			for(int i = 0; i <= 4; i++)
 			{
 				_cylicRedundancyCheck += charCRCArray[i] << 1;
+			}
+
+			// saving data to vector
+			vector<unsigned char>::iterator itData = itFinder + 3;
+			vector<unsigned char>::iterator itDataEnd = itCRC - 1;
+			// vector<unsigned char> 
+			
+			for(; itData != itDataEnd; itData++)
+			{
+				_data.push_back(*(itData));
 			}
 
 			cout << "Chunk: " << _type << " has been found with size: " << _length;

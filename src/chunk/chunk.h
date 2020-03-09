@@ -16,7 +16,7 @@ class Chunk
 		// chunk type, such as "IDAT"
 		char _type[5];
 		// reference to chunk data
-		//std::vector<unsigned char> &_data;
+		std::vector<unsigned char> _data;
 		int _cylicRedundancyCheck;
 
 	public:
