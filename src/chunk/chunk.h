@@ -21,7 +21,7 @@ class Chunk
 
 	public:
 		// constructor
-		Chunk(char pType[5]);
+		Chunk(char pType[5], std::ifstream &pFile);
 		
 		// get
 		unsigned int GetLength();

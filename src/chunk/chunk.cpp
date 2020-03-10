@@ -10,11 +10,11 @@
 
 using namespace std;
 
-Chunk::Chunk(char pType[5])
+Chunk::Chunk(char pType[5], ifstream &pFile)
 {
 	strcpy(_type, pType);
 	//loading the Chunk, becuase the Type is known
-	//Chunk::Load(pFile);
+	Chunk::Load(pFile);
 }
 
 unsigned int Chunk::GetLength()
