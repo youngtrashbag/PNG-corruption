@@ -4,6 +4,8 @@
 
 This is just a basic tool, that can corrupt Images and therefore create Interesting Visual Artifacts.
 
+NOTE: This only works wiht PNG images.
+
 ## Prerequisites
 
 - Cmake
@@ -13,11 +15,11 @@ This is just a basic tool, that can corrupt Images and therefore create Interest
 ## Installation
 
 1. `cd bin`
-2. `cmake ..`
+2. `cmake ../src`
 3. `make`
 4. Run any binary with or without an image (in case you don't use an image, the default image will be used)  
-`./increment`  
-`./increment my-image.png`
+`./ascii-increment`  
+`./ascii-increment my-image.png`
 
 ## License
 
