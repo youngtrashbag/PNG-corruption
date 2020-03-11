@@ -18,8 +18,14 @@ Chunk::Chunk(char pType[5], ifstream &pFile)
 
 	//get the position of the type
 	_typePos = LoadTypePos(pFile);
+
+	// TODO: maybe pass a vector<unsigned char> as a function param, for iterator to work with
+	if(_typePos == 0)
+	{
+		//error;
+	}
 	_length = LoadLength();
-	//LoadData();
+	_cyclicRedundancyCheck = LoadCRC();
 }
 
 
@@ -30,9 +36,7 @@ Chunk::Chunk(char pType[5], ifstream &pFile)
 
 
 
-int Chunk::GetCRC()
-{
-}
+
 
 //other functions
 bool Chunk::_load(ifstream &pFile)
@@ -81,18 +85,7 @@ bool Chunk::_load(ifstream &pFile)
 			// position for the CRC
 			vector<unsigned char>::iterator itCRC = itFinder + 3 + _length;
 
-			// get size of chunk
-			unsigned char charCRCArray[] = {
-				*(itCRC),
-				*(itCRC + 1),
-				*(itCRC + 2),
-				*(itCRC + 3)
-			};
-
-			for(int i = 0; i <= 4; i++)
-			{
-				_cylicRedundancyCheck += charCRCArray[i] << 1;
-			}
+			
 
 			// saving data to vector
 			vector<unsigned char>::iterator itData = itFinder + 3;
@@ -105,7 +98,7 @@ bool Chunk::_load(ifstream &pFile)
 			}
 
 			cout << "Chunk: " << _type << " has been found with size: " << _length;
-			cout << " and CRC is: " << _cylicRedundancyCheck << endl;
+			cout << " and CRC is: " << _cyclicRedundancyCheck << endl;
 			return true;
 		}
 	}
@@ -152,10 +145,9 @@ vector<unsigned char>::iterator Chunk::LoadTypePos(std::ifstream &pFile)
 // get the length of the chunk
 unsigned int Chunk::LoadLength()
 {
-	vector<unsigned char>::iterator lenFinder = _typePos;
-	
 	// the chunk size is located 4 bytes before the chunk type
-	lenFinder -= 4;
+	vector<unsigned char>::iterator lenFinder = _typePos - 4;
+
 	// get length of chunk
 	unsigned char charChunkSize[] = {
 		*(lenFinder),
@@ -173,6 +165,39 @@ unsigned int Chunk::LoadLength()
 	}
 }
 
+// this function loads the crc
+int Chunk::LoadCRC()
+{
+	// add the remaining 3 chars of the type and the length of the chunk, to see the crc
+	vector<unsigned char>::iterator crcFinder = _typePos + 3 + _length;
+
+	// get size of chunk
+	unsigned char charCRCArray[] = {
+		*(crcFinder),
+		*(crcFinder + 1),
+		*(crcFinder + 2),
+		*(crcFinder + 3)
+	};
+
+	for(int i = 0; i <= 4; i++)
+	{
+		_cyclicRedundancyCheck += charCRCArray[i] << 1;
+		//_cyclicRedundancyCheck += charCRCArray[i] << i;
+	}
+}
+
 std::vector<unsigned char> &Chunk::LoadData()
 {
+	// saving data to vector
+	vector<unsigned char>::iterator itDataBeg = _typePos + 3;
+	vector<unsigned char>::iterator itDataEnd = itDataBeg + _length;
+
+	vector<unsigned char> dataBuffer;
+	
+	for(; itDataBeg != itDataEnd; itDataBeg++)
+	{
+		dataBuffer.push_back(*(itDataBeg));
+	}
+
+	return dataBuffer;
 }

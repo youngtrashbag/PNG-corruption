@@ -16,7 +16,7 @@ class Chunk
 		// chunk type, such as "IDAT"
 		char _type[5];
 		//the cyclic redundancy check number
-		int _cylicRedundancyCheck;
+		int _cyclicRedundancyCheck;
 		//the position of the first letter of the Chunk (for "IDAT" its "I")
 		std::vector<unsigned char>::iterator _typePos;
 
@@ -29,12 +29,13 @@ class Chunk
 		
 		// functions
 		//char[5] GetType();
-		int GetCRC();
+		
 		void ReCalculateCRC();
 
 		//new
 		std::vector<unsigned char>::iterator LoadTypePos(std::ifstream &pFile);
 		unsigned int LoadLength();
+		int LoadCRC();
 		std::vector<unsigned char> &LoadData();
 };
 
