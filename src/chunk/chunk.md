@@ -27,4 +27,3 @@ See [CRC Algorithm](http://www.libpng.org/pub/png/spec/1.2/PNG-Structure.html#CR
 ### Most Important
 
 The minimum Length of a Chunk is 12 Bytes; 4byte length + 4byte type + 4byte CRC.
-
