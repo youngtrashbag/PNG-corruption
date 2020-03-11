@@ -39,6 +39,7 @@ Chunk::Chunk(char pType[5], ifstream &pFile)
 
 
 //other functions
+/*
 bool Chunk::_load(ifstream &pFile)
 {
 	vector<unsigned char> fileBuffer(istreambuf_iterator<char>(pFile), {});
@@ -106,6 +107,7 @@ bool Chunk::_load(ifstream &pFile)
 	cout << "Chunk: " << _type << " could not be found" << endl;
 	return false;
 }
+*/
 
 void Chunk::ReCalculateCRC()
 {
