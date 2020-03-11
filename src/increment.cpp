@@ -53,9 +53,9 @@ int main(int argc, char* argv[])
 	newImage.close();*/
 
 	char chunkType[] = {'I', 'D', 'A', 'T', '\0'};
-	Chunk* idatChunk = new Chunk(chunkType);
+	Chunk* idatChunk = new Chunk(chunkType, imageFile);
 
-	idatChunk->Load(imageFile);
+	//idatChunk->Load(imageFile);
 	imageFile.close();
 
 	return 0;

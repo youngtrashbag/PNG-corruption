@@ -14,27 +14,28 @@ Chunk::Chunk(char pType[5], ifstream &pFile)
 {
 	strcpy(_type, pType);
 	//loading the Chunk, becuase the Type is known
-	Chunk::Load(pFile);
+	//Chunk::_load(pFile);
+
+	//get the position of the type
+	_typePos = LoadTypePos(pFile);
+	_length = LoadLength();
+	//LoadData();
 }
 
-unsigned int Chunk::GetLength()
-{
-}
+
 
 /*char[5] Chunk::GetType()
 {
 }*/
 
-std::vector<unsigned char> &Chunk::GetData()
-{
-}
+
 
 int Chunk::GetCRC()
 {
 }
 
 //other functions
-bool Chunk::Load(ifstream &pFile)
+bool Chunk::_load(ifstream &pFile)
 {
 	vector<unsigned char> fileBuffer(istreambuf_iterator<char>(pFile), {});
 
@@ -117,3 +118,61 @@ void Chunk::ReCalculateCRC()
 {
 }
 
+// NEW
+// returns the position of the 
+vector<unsigned char>::iterator Chunk::LoadTypePos(std::ifstream &pFile)
+{
+	vector<unsigned char> fileBuffer(istreambuf_iterator<char>(pFile), {});
+
+	// itFinder -> iteratorFinder
+	vector<unsigned char>::iterator itFinder = fileBuffer.begin();
+	itFinder += 8; // advance 8 bytes, because of PNG Signature
+
+	// find the ChunkType
+	
+	for(; itFinder != fileBuffer.end(); itFinder++)
+	{
+		if(
+			*(itFinder) == (unsigned) _type[0] &&
+			*(itFinder+1) == (unsigned) _type[1] &&
+			*(itFinder+2) == (unsigned) _type[2] &&
+			*(itFinder+3) == (unsigned) _type[3]
+		  )
+		{
+			return itFinder;
+		}
+		else
+		{
+			itFinder = fileBuffer.begin();
+			return itFinder;
+		}	
+	}
+}
+
+// get the length of the chunk
+unsigned int Chunk::LoadLength()
+{
+	vector<unsigned char>::iterator lenFinder = _typePos;
+	
+	// the chunk size is located 4 bytes before the chunk type
+	lenFinder -= 4;
+	// get length of chunk
+	unsigned char charChunkSize[] = {
+		*(lenFinder),
+		*(lenFinder + 1),
+		*(lenFinder + 2),
+		*(lenFinder + 3)
+	};
+
+	_length = 0;
+
+	for(int i = 0; i <= 4; i++)
+	{
+		_length += charChunkSize[i] << 1;
+		//_length += charChunkSize[i] << i;
+	}
+}
+
+std::vector<unsigned char> &Chunk::LoadData()
+{
+}
