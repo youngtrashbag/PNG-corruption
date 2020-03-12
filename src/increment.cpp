@@ -42,25 +42,27 @@ int main(int argc, char* argv[])
 
 	//do things with buffer
 	//incrementBuffer(buffer, DEFAULT_INCREMENT_AMOUNT);
-	//save buffer in image
-	cout << "Writing changes to new file: " << newFilename << endl;
-	copy(buffer.begin(), buffer.end(), ostreambuf_iterator<char>(newImage));
-
-	char chunkType[] = {'I', 'D', 'A', 'T', '\0'};
-	int test = GetChunkBuffer(imageFile, chunkType);
-	cout << "IDAT CHUNK IS: " << test << " bytes in length i think." << endl;
 
 	newImage.close();*/
 
 	char chunkType[] = {'I', 'D', 'A', 'T', '\0'};
 	Chunk* idatChunk = new Chunk(chunkType, imageFile);
 
-	/* TODO: big todo; see if i can use the iterator as the buffer,
-	 * so i dont need a seperate buffer because its very confusing to me */
-
 	GetChunkInfo(*idatChunk);
 
+	idatChunk->Increment(1);
+
 	imageFile.close();
+
+	//TODO: create new file, save the buffer into file, close file
+	ofstream newImage;
+	newFilename = "inc-" + filename;
+	newImage.open(newFilename, ios::binary);
+
+	//copy contents from vector to file
+	copy(idatChunk->GetBufferBeg(), idatChunk->GetBufferEnd(), ostreambuf_iterator<char>(newImage));
+
+	newImage.close();
 
 	return 0;
 }

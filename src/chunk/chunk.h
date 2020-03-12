@@ -24,8 +24,11 @@ class Chunk
 		//the position of the first letter of the Chunk (for "IDAT" its "I")
 		std::vector<unsigned char>::iterator _typePos;
 
-		// buffer for the whole ass file
-		std::vector<unsigned char> _imageBuffer;
+		// iterator for the beginning and the end of the file
+		// TODO: USE WHOLE VECTOR INSTEAD OF ITERATOR
+		std::vector<unsigned char> _buffer;
+		//std::vector<unsigned char>::iterator _bufferBeg;
+		//std::vector<unsigned char>::iterator _bufferEnd;
 
 	public:
 		/* functions */
@@ -36,6 +39,8 @@ class Chunk
 		unsigned int GetLength();
 		std::string GetType();
 		int GetCRC();
+		std::vector<unsigned char>::iterator GetBufferBeg();
+		std::vector<unsigned char>::iterator GetBufferEnd();
 		
 		std::vector<unsigned char>::iterator LoadTypePos();
 		unsigned int LoadLength();
@@ -44,6 +49,9 @@ class Chunk
 		//std::vector<unsigned char> &GetData();
 		//void SaveData(vector<unsigned char> &pDataBuffer);
 		void ReCalculateCRC();
+
+		// distortion funcs
+		void Increment(int value);
 };
 
 void GetChunkInfo(Chunk &pChunk);

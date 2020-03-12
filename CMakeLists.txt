@@ -11,6 +11,7 @@ set(SRC_FILES_AI
 	src/func.cpp
 	src/chunk/chunk.h
 	src/chunk/chunk.cpp
+	src/distortion/increment-func.cpp
 	)
 
 # source files for ASCII Shift

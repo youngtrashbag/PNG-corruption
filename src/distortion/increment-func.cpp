@@ -7,14 +7,20 @@
  */
 
 #include "../header.h"
+#include "../chunk/chunk.h"
+
+using namespace std;
 
 // increment the value of every char in the buffer
-void incrementBuffer(vector<unsigned char> &buffer, unsigned int incrementation)
+void Chunk::Increment(int value)
 {
-	vector<unsigned char>::iterator it = buffer.begin();
+	vector<unsigned char>::iterator it = _typePos + 4;
+	vector<unsigned char>::iterator dataEnd = _typePos + 4 + _length;
 
-	for(; it != buffer.end(); it++)
+	for(; it != dataEnd; it++)
 	{
-		*it += incrementation;
+		*it += value;
 	}
+	
 }
+
