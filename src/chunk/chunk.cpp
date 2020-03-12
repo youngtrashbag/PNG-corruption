@@ -16,6 +16,10 @@ Chunk::Chunk(char pType[5], ifstream &pFile)
 	vector<unsigned char> imageBuffer(istreambuf_iterator<char>(pFile), {});
 	_imageBuffer = imageBuffer;
 
+	//assign the private iterators i think they are
+	_bufferBeg = imageBuffer.begin();
+	_bufferEnd = imageBuffer.end();
+
 	strcpy(_type, pType);
 
 	//get the position of the type
