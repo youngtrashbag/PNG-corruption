@@ -25,7 +25,7 @@ class Chunk
 
 	public:
 		// constructor
-		Chunk(char pType[5], std::ifstream &pFile);
+		Chunk(char pType[5], std::vector<unsigned int> &pFileBuffer);
 		
 		// functions
 		//char[5] GetType();
@@ -33,9 +33,9 @@ class Chunk
 		void ReCalculateCRC();
 
 		//new
-		std::vector<unsigned char>::iterator LoadTypePos(std::ifstream &pFile);
-		unsigned int LoadLength();
-		int LoadCRC();
-		std::vector<unsigned char> &LoadData();
+		std::vector<unsigned char>::iterator LoadTypePos(std::vector<unsigned int> &pFileBuffer);
+		unsigned int LoadLength(std::vector<unsigned int> &pFileBuffer);
+		int LoadCRC(std::vector<unsigned int> &pFileBuffer);
+		std::vector<unsigned char> &LoadData(std::vector<unsigned int> &pFileBuffer);
 };
 

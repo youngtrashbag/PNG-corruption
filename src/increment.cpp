@@ -52,8 +52,10 @@ int main(int argc, char* argv[])
 
 	newImage.close();*/
 
+	vector<unsigned char> imageBuffer(istreambuf_iterator<char>(imageFile), {});
+
 	char chunkType[] = {'I', 'D', 'A', 'T', '\0'};
-	Chunk* idatChunk = new Chunk(chunkType, imageFile);
+	Chunk* idatChunk = new Chunk(chunkType, imageBuffer);
 
 	//idatChunk->Load(imageFile);
 	imageFile.close();

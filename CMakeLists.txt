@@ -6,20 +6,20 @@ set(CMAKE_CXX_COMPILER clang++)
 
 # source files for ASCII Increment
 set(SRC_FILES_AI
-	increment.cpp
-	header.h
-	func.cpp
-	chunk/chunk.h
-	chunk/chunk.cpp
+	src/increment.cpp
+	src/header.h
+	src/func.cpp
+	src/chunk/chunk.h
+	src/chunk/chunk.cpp
 	)
 
 # source files for ASCII Shift
 # set(SRC_FILES_AS
-# 	shift.cpp
-# 	header.h
-# 	func.cpp
-# 	chunk/chunk.h
-# 	chunk/chunk.cpp
+# 	src/shift.cpp
+# 	src/header.h
+# 	src/func.cpp
+# 	src/chunk/chunk.h
+# 	src/chunk/chunk.cpp
 # 	)
 
 add_executable(ascii-increment ${SRC_FILES_AI})

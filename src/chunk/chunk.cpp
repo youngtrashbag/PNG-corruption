@@ -10,7 +10,7 @@
 
 using namespace std;
 
-Chunk::Chunk(char pType[5], ifstream &pFile)
+Chunk::Chunk(char pType[5], vector<unsigned int> &pFileBuffer)
 {
 	strcpy(_type, pType);
 	//loading the Chunk, becuase the Type is known
@@ -115,12 +115,11 @@ void Chunk::ReCalculateCRC()
 
 // NEW
 // returns the position of the 
-vector<unsigned char>::iterator Chunk::LoadTypePos(std::ifstream &pFile)
+vector<unsigned char>::iterator Chunk::LoadTypePos(vector<unsigned int> &pFileBuffer)
 {
-	vector<unsigned char> fileBuffer(istreambuf_iterator<char>(pFile), {});
 
 	// itFinder -> iteratorFinder
-	vector<unsigned char>::iterator itFinder = fileBuffer.begin();
+	vector<unsigned char>::iterator itFinder = pFileBuffer.begin();
 	itFinder += 8; // advance 8 bytes, because of PNG Signature
 
 	// find the ChunkType
@@ -145,10 +144,11 @@ vector<unsigned char>::iterator Chunk::LoadTypePos(std::ifstream &pFile)
 }
 
 // get the length of the chunk
-unsigned int Chunk::LoadLength()
+unsigned int Chunk::LoadLength(vector<unsigned int> &pFileBuffer)
 {
 	// the chunk size is located 4 bytes before the chunk type
-	vector<unsigned char>::iterator lenFinder = _typePos - 4;
+	vector<unsigned char>::iterator lenFinder = pFileBuffer.begin();
+	lenFinder = _typePos - 4;
 
 	// get length of chunk
 	unsigned char charChunkSize[] = {
@@ -168,10 +168,11 @@ unsigned int Chunk::LoadLength()
 }
 
 // this function loads the crc
-int Chunk::LoadCRC()
+int Chunk::LoadCRC(vector<unsigned int> &pFileBuffer)
 {
 	// add the remaining 3 chars of the type and the length of the chunk, to see the crc
-	vector<unsigned char>::iterator crcFinder = _typePos + 3 + _length;
+	vector<unsigned char>::iterator crcFinder = pFileBuffer.begin();
+	crcFinder = _typePos + 3 + _length;
 
 	// get size of chunk
 	unsigned char charCRCArray[] = {
@@ -188,10 +189,11 @@ int Chunk::LoadCRC()
 	}
 }
 
-std::vector<unsigned char> &Chunk::LoadData()
+std::vector<unsigned char> &Chunk::LoadData(vector<unsigned int> &pFileBuffer)
 {
 	// saving data to vector
-	vector<unsigned char>::iterator itDataBeg = _typePos + 3;
+	vector<unsigned char>::iterator itDataBeg = pFileBuffer.begin();
+	itDataBeg = _typePos + 3;
 	vector<unsigned char>::iterator itDataEnd = itDataBeg + _length;
 
 	vector<unsigned char> dataBuffer;
@@ -203,3 +205,4 @@ std::vector<unsigned char> &Chunk::LoadData()
 
 	return dataBuffer;
 }
+
