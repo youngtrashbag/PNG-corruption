@@ -15,7 +15,7 @@ NOTE: This only works wiht PNG images.
 ## Installation
 
 1. `cd bin`
-2. `cmake ../src`
+2. `cmake ..`
 3. `make`
 4. Run any binary with or without an image (in case you don't use an image, the default image will be used)  
 `./ascii-increment`  

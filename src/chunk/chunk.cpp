@@ -115,7 +115,7 @@ void Chunk::ReCalculateCRC()
 
 // NEW
 // returns the position of the 
-vector<unsigned char>::iterator Chunk::LoadTypePos(vector<unsigned int> &pFileBuffer)
+vector<unsigned char>::iterator Chunk::LoadTypePos(vector<unsigned char> &pFileBuffer)
 {
 
 	// itFinder -> iteratorFinder
@@ -144,7 +144,7 @@ vector<unsigned char>::iterator Chunk::LoadTypePos(vector<unsigned int> &pFileBu
 }
 
 // get the length of the chunk
-unsigned int Chunk::LoadLength(vector<unsigned int> &pFileBuffer)
+unsigned int Chunk::LoadLength(vector<unsigned char> &pFileBuffer)
 {
 	// the chunk size is located 4 bytes before the chunk type
 	vector<unsigned char>::iterator lenFinder = pFileBuffer.begin();
@@ -168,7 +168,7 @@ unsigned int Chunk::LoadLength(vector<unsigned int> &pFileBuffer)
 }
 
 // this function loads the crc
-int Chunk::LoadCRC(vector<unsigned int> &pFileBuffer)
+int Chunk::LoadCRC(vector<unsigned char> &pFileBuffer)
 {
 	// add the remaining 3 chars of the type and the length of the chunk, to see the crc
 	vector<unsigned char>::iterator crcFinder = pFileBuffer.begin();
@@ -189,7 +189,7 @@ int Chunk::LoadCRC(vector<unsigned int> &pFileBuffer)
 	}
 }
 
-std::vector<unsigned char> &Chunk::LoadData(vector<unsigned int> &pFileBuffer)
+std::vector<unsigned char> &Chunk::LoadData(vector<unsigned char> &pFileBuffer)
 {
 	// saving data to vector
 	vector<unsigned char>::iterator itDataBeg = pFileBuffer.begin();
