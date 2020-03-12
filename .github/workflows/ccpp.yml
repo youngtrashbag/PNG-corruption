@@ -1,4 +1,4 @@
-name: C/C++ CI
+name: usual build
 
 on: [push]
 
@@ -10,6 +10,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: cmake
-      run: cmake ./src
+      run: cmake
     - name: make
       run: make
