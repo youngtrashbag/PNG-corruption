@@ -52,12 +52,14 @@ int main(int argc, char* argv[])
 
 	newImage.close();*/
 
-	vector<unsigned char> imageBuffer(istreambuf_iterator<char>(imageFile), {});
-
 	char chunkType[] = {'I', 'D', 'A', 'T', '\0'};
-	Chunk* idatChunk = new Chunk(chunkType, imageBuffer);
+	Chunk* idatChunk = new Chunk(chunkType, imageFile);
 
-	//idatChunk->Load(imageFile);
+	/* TODO: big todo; see if i can use the iterator as the buffer,
+	 * so i dont need a seperate buffer because its very confusing to me */
+
+	GetChunkInfo(*idatChunk);
+
 	imageFile.close();
 
 	return 0;

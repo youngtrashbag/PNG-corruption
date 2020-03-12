@@ -10,17 +10,21 @@
 
 using namespace std;
 
-Chunk::Chunk(char pType[5], vector<unsigned int> &pFileBuffer)
+Chunk::Chunk(char pType[5], ifstream &pFile)
 {
+	// file to buffer and save as attribute
+	vector<unsigned char> imageBuffer(istreambuf_iterator<char>(pFile), {});
+	_imageBuffer = imageBuffer;
+
 	strcpy(_type, pType);
 	//loading the Chunk, becuase the Type is known
 	//Chunk::_load(pFile);
 
 	//get the position of the type
-	_typePos = LoadTypePos(pFile);
+	_typePos = LoadTypePos();
 
 	// TODO: maybe pass a vector<unsigned char> as a function param, for iterator to work with
-	if(_typePos == 0)
+	if(_typePos == _imageBuffer.begin())
 	{
 		//error;
 	}
@@ -29,14 +33,20 @@ Chunk::Chunk(char pType[5], vector<unsigned int> &pFileBuffer)
 }
 
 
-
-/*char[5] Chunk::GetType()
+unsigned int Chunk::GetLength()
 {
-}*/
+	return _length;
+}
 
+string Chunk::GetType()
+{
+	return _type;
+}
 
-
-
+int Chunk::GetCRC()
+{
+	return _cyclicRedundancyCheck;
+}
 
 //other functions
 /*
@@ -115,16 +125,16 @@ void Chunk::ReCalculateCRC()
 
 // NEW
 // returns the position of the 
-vector<unsigned char>::iterator Chunk::LoadTypePos(vector<unsigned char> &pFileBuffer)
+vector<unsigned char>::iterator Chunk::LoadTypePos()
 {
 
 	// itFinder -> iteratorFinder
-	vector<unsigned char>::iterator itFinder = pFileBuffer.begin();
+	vector<unsigned char>::iterator itFinder = _imageBuffer.begin();
 	itFinder += 8; // advance 8 bytes, because of PNG Signature
 
 	// find the ChunkType
 	
-	for(; itFinder != fileBuffer.end(); itFinder++)
+	for(; itFinder != _imageBuffer.end(); itFinder++)
 	{
 		if(
 			*(itFinder) == (unsigned) _type[0] &&
@@ -135,19 +145,17 @@ vector<unsigned char>::iterator Chunk::LoadTypePos(vector<unsigned char> &pFileB
 		{
 			return itFinder;
 		}
-		else
-		{
-			itFinder = fileBuffer.begin();
-			return itFinder;
-		}	
 	}
+
+	itFinder = _imageBuffer.begin();
+	return itFinder;
 }
 
 // get the length of the chunk
-unsigned int Chunk::LoadLength(vector<unsigned char> &pFileBuffer)
+unsigned int Chunk::LoadLength()
 {
 	// the chunk size is located 4 bytes before the chunk type
-	vector<unsigned char>::iterator lenFinder = pFileBuffer.begin();
+	vector<unsigned char>::iterator lenFinder = _imageBuffer.begin();
 	lenFinder = _typePos - 4;
 
 	// get length of chunk
@@ -158,20 +166,22 @@ unsigned int Chunk::LoadLength(vector<unsigned char> &pFileBuffer)
 		*(lenFinder + 3)
 	};
 
-	_length = 0;
+	unsigned int length = 0;
 
 	for(int i = 0; i <= 4; i++)
 	{
-		_length += charChunkSize[i] << 1;
-		//_length += charChunkSize[i] << i;
+		length += charChunkSize[i] << 1;
+		//length += charChunkSize[i] << i;
 	}
+
+	return length;
 }
 
 // this function loads the crc
-int Chunk::LoadCRC(vector<unsigned char> &pFileBuffer)
+int Chunk::LoadCRC()
 {
 	// add the remaining 3 chars of the type and the length of the chunk, to see the crc
-	vector<unsigned char>::iterator crcFinder = pFileBuffer.begin();
+	vector<unsigned char>::iterator crcFinder = _imageBuffer.begin();
 	crcFinder = _typePos + 3 + _length;
 
 	// get size of chunk
@@ -182,17 +192,22 @@ int Chunk::LoadCRC(vector<unsigned char> &pFileBuffer)
 		*(crcFinder + 3)
 	};
 
+	int cyclicRedundancyCheck = 0;
+
 	for(int i = 0; i <= 4; i++)
 	{
-		_cyclicRedundancyCheck += charCRCArray[i] << 1;
-		//_cyclicRedundancyCheck += charCRCArray[i] << i;
+		cyclicRedundancyCheck += charCRCArray[i] << 1;
+		//cyclicRedundancyCheck += charCRCArray[i] << i;
 	}
+
+	return cyclicRedundancyCheck;
 }
 
-std::vector<unsigned char> &Chunk::LoadData(vector<unsigned char> &pFileBuffer)
+/*
+vector<unsigned char> &Chunk::GetData()
 {
 	// saving data to vector
-	vector<unsigned char>::iterator itDataBeg = pFileBuffer.begin();
+	vector<unsigned char>::iterator itDataBeg = _imageBuffer.begin();
 	itDataBeg = _typePos + 3;
 	vector<unsigned char>::iterator itDataEnd = itDataBeg + _length;
 
@@ -204,5 +219,33 @@ std::vector<unsigned char> &Chunk::LoadData(vector<unsigned char> &pFileBuffer)
 	}
 
 	return dataBuffer;
+}
+*/
+
+/*
+// saves the data to the original image buffer
+void Chunk::SaveData(vector<unsigned char> &pDataBuffer)
+{
+	// saving data to vector
+	vector<unsigned char>::iterator itDataBeg = _imageBuffer.begin();
+	itDataBeg = _typePos + 3;
+	vector<unsigned char>::iterator itDataEnd = itDataBeg + _length;
+
+	vector<unsigned char> dataBuffer;
+	
+	for(; itDataBeg != itDataEnd; itDataBeg++)
+	{
+		dataBuffer.push_back(*(itDataBeg));
+	}
+
+}
+*/
+
+// Display the Infos of a Chunk.
+void GetChunkInfo(Chunk &pChunk)
+{
+	cout << "Chunk Type: " << pChunk.GetType() << endl;
+	cout << "Chunk Length: " << pChunk.GetLength() << endl;
+	cout << "Chunk CRC: " << pChunk.GetCRC() << endl;
 }
 

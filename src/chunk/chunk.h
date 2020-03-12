@@ -19,13 +19,20 @@ class Chunk
 		int _cyclicRedundancyCheck;
 		//the position of the first letter of the Chunk (for "IDAT" its "I")
 		std::vector<unsigned char>::iterator _typePos;
+		// buffer for the whole ass file
+		std::vector<unsigned char> _imageBuffer;
 
 		// function that get executed in the ctor
 		bool _load(std::ifstream &pFile);
 
 	public:
 		// constructor
-		Chunk(char pType[5], std::vector<unsigned char> &pFileBuffer);
+		Chunk(char pType[5], std::ifstream &pFile);
+
+		// get & set
+		unsigned int GetLength();
+		std::string GetType();
+		int GetCRC();
 		
 		// functions
 		//char[5] GetType();
@@ -33,9 +40,12 @@ class Chunk
 		void ReCalculateCRC();
 
 		//new
-		std::vector<unsigned char>::iterator LoadTypePos(std::vector<unsigned char> &pFileBuffer);
-		unsigned int LoadLength(std::vector<unsigned char> &pFileBuffer);
-		int LoadCRC(std::vector<unsigned char> &pFileBuffer);
-		std::vector<unsigned char> &LoadData(std::vector<unsigned char> &pFileBuffer);
+		std::vector<unsigned char>::iterator LoadTypePos();
+		unsigned int LoadLength();
+		int LoadCRC();
+		//std::vector<unsigned char> &GetData();
+		//void SaveData(vector<unsigned char> &pDataBuffer);
 };
+
+void GetChunkInfo(Chunk &pChunk);
 
