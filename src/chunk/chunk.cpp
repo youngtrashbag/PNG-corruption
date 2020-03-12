@@ -120,7 +120,7 @@ unsigned int Chunk::LoadLength()
 int Chunk::LoadCRC()
 {
 	// add the remaining 3 chars of the type and the length of the chunk, to see the crc
-	vector<unsigned char>::iterator crcFinder = _typePos + 3 + _length;
+	vector<unsigned char>::iterator crcFinder = _typePos + 4 + _length;
 
 	// get size of chunk
 	unsigned char charCRCArray[5] = {
