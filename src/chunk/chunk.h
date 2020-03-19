@@ -25,10 +25,7 @@ class Chunk
 		std::vector<unsigned char>::iterator _typePos;
 
 		// iterator for the beginning and the end of the file
-		// TODO: USE WHOLE VECTOR INSTEAD OF ITERATOR
 		std::vector<unsigned char> _buffer;
-		//std::vector<unsigned char>::iterator _bufferBeg;
-		//std::vector<unsigned char>::iterator _bufferEnd;
 
 	public:
 		/* functions */
@@ -44,7 +41,7 @@ class Chunk
 		
 		std::vector<unsigned char>::iterator LoadTypePos();
 		unsigned int LoadLength();
-		int LoadCRC();
+		unsigned long LoadCRC();
 
 		//std::vector<unsigned char> &GetData();
 		//void SaveData(vector<unsigned char> &pDataBuffer);

@@ -12,7 +12,7 @@
 using namespace std;
 
 // this function loads the crc
-int Chunk::LoadCRC()
+unsigned long Chunk::LoadCRC()
 {
 	// add the remaining 3 chars of the type and the length of the chunk, to see the crc
 	vector<unsigned char>::iterator crcFinder = _typePos + 4 + _length;
@@ -27,7 +27,7 @@ int Chunk::LoadCRC()
 
 	int cyclicRedundancyCheck = 0;
 
-	for(int i = 0; i <= 4; i++)
+	for(int i = 0; i < 4; i++)
 	{
 		cyclicRedundancyCheck += charCRCArray[i] << 1;
 	}

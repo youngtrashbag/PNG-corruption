@@ -125,7 +125,7 @@ void GetChunkInfo(Chunk &pChunk)
 	cout << "Chunk CRC: " << pChunk.GetCRC() << endl;
 
 	// testing things
-	cout << "sizeof chunk: " << sizeof pChunk << endl;
+	cout << "sizeof chunk object: " << sizeof pChunk << endl;
 }
 
 
