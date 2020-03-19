@@ -48,7 +48,7 @@ string Chunk::GetType()
 	return _type;
 }
 
-int Chunk::GetCRC()
+unsigned long Chunk::GetCRC()
 {
 	return _cyclicRedundancyCheck;
 }

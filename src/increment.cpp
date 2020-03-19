@@ -54,7 +54,6 @@ int main(int argc, char* argv[])
 
 	imageFile.close();
 
-	//TODO: create new file, save the buffer into file, close file
 	ofstream newImage;
 	newFilename = "inc-" + filename;
 	newImage.open(newFilename, ios::binary);

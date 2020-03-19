@@ -35,7 +35,7 @@ class Chunk
 
 		unsigned int GetLength();
 		std::string GetType();
-		int GetCRC();
+		unsigned long GetCRC();
 		std::vector<unsigned char>::iterator GetBufferBeg();
 		std::vector<unsigned char>::iterator GetBufferEnd();
 		
@@ -45,7 +45,7 @@ class Chunk
 
 		//std::vector<unsigned char> &GetData();
 		//void SaveData(vector<unsigned char> &pDataBuffer);
-		void ReCalculateCRC();
+		void UpdateCRC();
 
 		// distortion funcs
 		void Increment(int value);

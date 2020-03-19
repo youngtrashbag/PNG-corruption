@@ -36,7 +36,9 @@ unsigned long Chunk::LoadCRC()
 	return cyclicRedundancyCheck;
 }
 
-void Chunk::ReCalculateCRC()
+void Chunk::UpdateCRC()
 {
+	vector<unsigned char>::iterator it = _typePos + 4;
+	vector<unsigned char>::iterator dataEnd = _typePos + 3 + _length;
 }
 

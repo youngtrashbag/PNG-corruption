@@ -15,12 +15,13 @@ using namespace std;
 void Chunk::Increment(int value)
 {
 	vector<unsigned char>::iterator it = _typePos + 4;
-	vector<unsigned char>::iterator dataEnd = _typePos + 4 + _length;
+	vector<unsigned char>::iterator dataEnd = _typePos + 3 + _length;
 
 	for(; it != dataEnd; it++)
 	{
 		*it += value;
 	}
-	
+
+	this->UpdateCRC();
 }
 
