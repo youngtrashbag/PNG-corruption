@@ -19,7 +19,7 @@ class Chunk
 		char _type[5];
 
 		//the cyclic redundancy check number
-		int _cyclicRedundancyCheck;
+		unsigned long _cyclicRedundancyCheck;
 
 		//the position of the first letter of the Chunk (for "IDAT" its "I")
 		std::vector<unsigned char>::iterator _typePos;

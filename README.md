@@ -3,6 +3,7 @@
 ## Introduction
 
 This is a tool, that can corrupt PNG Images and therefore create Interesting Visual Artifacts.
+Focused on IDAT Chunk.
 
 ## Prerequisites
 

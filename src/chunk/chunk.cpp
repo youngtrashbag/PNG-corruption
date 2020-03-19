@@ -120,12 +120,13 @@ unsigned int Chunk::LoadLength()
 // Display the Infos of a Chunk.
 void GetChunkInfo(Chunk &pChunk)
 {
-	cout << "Chunk Type: " << pChunk.GetType() << endl;
-	cout << "Chunk Length: " << pChunk.GetLength() << endl;
-	cout << "Chunk CRC: " << pChunk.GetCRC() << endl;
+	cout << "Chunk Type:\t\t" << pChunk.GetType() << endl;
+	cout << "Chunk Length:\t\t" << pChunk.GetLength() << endl;
+	cout << "Chunk CRC:\t\t" << pChunk.GetCRC() << endl;
+	printf("Chunk CRC as hex:\t%08x\n", pChunk.GetCRC());
 
 	// testing things
-	cout << "sizeof chunk object: " << sizeof pChunk << endl;
+	cout << "sizeof chunk object:\t" << sizeof pChunk << endl;
 }
 
 
