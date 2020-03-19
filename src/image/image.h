@@ -12,15 +12,17 @@ class Image
 {
 	private:
 		/* attributes */
+		// the filestream
+		std::filestream &_fileStream;
 		// the filename of the image file
 		std::string _fileName;
-		Chunk _chunkArray[8];
+		std::vector<Chunk> chunks;
 
 	public:
 		/* functions */
 
 		// constructor
-		Image(std::string pFileName);
+		Image(std::string pFilename, std::ifstream &pFile);
 
 		Chunk GetChunk(char pType[5]);
 		std::string GetFileName();

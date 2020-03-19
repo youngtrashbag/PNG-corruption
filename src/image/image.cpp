@@ -6,31 +6,31 @@
  * 	Code File Containting Functions of Image Class.
  */
 
-Image::Image(std::string pFileName)
-{
-	_fileName = pFileName;
+using namespace std;
 
-	for(int ci = 0; ci < (sizeof(_chunkArray) / sizeof(_chunkArray[0])); ci++)
-	{
-		_chunkArray[ci] = Chunk("IDAT");
-	}
+Image::Image(string pFilename, ifstream &pFile);
+{
+	_fileStream = pFile;
+	_fileName = pFileName;
 }
 
 Chunk Image::GetChunk(char pType[5])
 {
-	for(int i = 0; i < (sizeof(_chunkArray) / sizeof(_chunkArray[0])); i++)
+	vector<Chunk>::iterator it = _chunks.begin();
+	for(; it != _chunks.end(); it++)
 	{
-		if(_chunkArray[i].GetType() == pType)
+		if(*it.GetType() == pType)
 		{
-			return _chunkArray[i];
+			return *it;
 		}
 	}
 
 	// in case there was no match
-	return Chunk("IHDR");
+	return Chunk("IDAT", _fileStream);
 }
 
 std::string Image::GetFileName()
 {
+	return _fileName;
 }
 
