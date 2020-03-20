@@ -15,7 +15,7 @@ Focused on IDAT Chunk.
 1. `cd bin`
 2. `cmake ..`
 3. `make`
-4. Run a newly created binary with or without an image (in case you don't use an image, the default image will be used)  
+4. Run the newly created binary (in case you don't use an image, the default image will be used)  
 `./ascii-increment`  
 `./ascii-increment my-image.png`
 

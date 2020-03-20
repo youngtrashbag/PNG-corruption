@@ -41,5 +41,50 @@ void Chunk::UpdateCRC()
 	//the crc is calculated with data and type parts of the chunk
 	vector<unsigned char>::iterator it = _typePos;
 	vector<unsigned char>::iterator dataEnd = _typePos + 3 + _length;
+	
+	unsigned int dataLen = dataEnd - it;
+
+	//part 1
+	unsigned long crc_table[256];
+	unsigned long c;
+    int n, k;
+
+    //n is the size of the array
+    for (n = 0; n < 256; n++)
+    {
+        c = (unsigned long) n;
+        for (k = 0; k < 8; k++)
+        {
+            //if c != 0 then true
+            if (c & 1)
+            {
+                /*
+                * hex: 0xedb88320
+                * bin: ‭1110'1101'1011'1000'1000'0011'0010'0000‬
+                * dec: ‭3'988'292'384‬
+                */
+			   // what does this number mean ????
+                c = 0xedb88320L ^ (c >> 1);
+            }
+            else
+            {
+                c = c >> 1;
+            }
+            
+        }
+
+        crc_table[n] = c;
+    }
+
+	//part 2
+	unsigned long crc = 0xffffffffL;
+
+    for (; it != dataEnd; it++)
+    {
+        crc = crc_table[(crc ^ *(it)) & 0xff] ^ (crc >> 8);
+    }
+    
+	unsigned long newCRC = crc ^ 0xffffffffL;
+	cout << "new crc: " << newCRC << endl;
 }
 
