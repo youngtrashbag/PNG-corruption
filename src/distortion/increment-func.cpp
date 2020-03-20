@@ -17,6 +17,7 @@ void Chunk::Increment(int value)
 	vector<unsigned char>::iterator it = _typePos + 4;
 	vector<unsigned char>::iterator dataEnd = _typePos + 3 + _length;
 
+	// dataEnd is the first byte of the crc. it will stop editing before this is reached
 	for(; it != dataEnd; it++)
 	{
 		*it += value;

@@ -38,7 +38,8 @@ unsigned long Chunk::LoadCRC()
 
 void Chunk::UpdateCRC()
 {
-	vector<unsigned char>::iterator it = _typePos + 4;
+	//the crc is calculated with data and type parts of the chunk
+	vector<unsigned char>::iterator it = _typePos;
 	vector<unsigned char>::iterator dataEnd = _typePos + 3 + _length;
 }
 
