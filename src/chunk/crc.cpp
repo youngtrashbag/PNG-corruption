@@ -76,14 +76,14 @@ void Chunk::UpdateCRC()
     }
 
 	//part 2
-	unsigned long c = 0xffffffffL;
+	unsigned long crc = 0xffffffffL;
 
     for (; it != dataEnd; it++)
     {
-        c = crc_table[(c ^ *(it)) & 0xff] ^ (c >> 8);
+        crc = crc_table[(crc ^ *(it)) & 0xff] ^ (crc >> 8);
     }
     
-	unsigned long newCRC = c ^ 0xffffffffL;
+	unsigned long newCRC = crc ^ 0xffffffffL;
 	cout << "new crc: " << newCRC << endl;
 }
 
