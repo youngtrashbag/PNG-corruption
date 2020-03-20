@@ -50,7 +50,7 @@ int main(int argc, char* argv[])
 
 	GetChunkInfo(*idatChunk);
 
-	idatChunk->Increment(1);
+	idatChunk->Increment(0);
 
 	imageFile.close();
 

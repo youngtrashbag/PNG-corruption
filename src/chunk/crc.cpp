@@ -77,7 +77,8 @@ void Chunk::UpdateCRC()
     }
 
 	//part 2
-	unsigned long crc = 0xffffffffL;
+	//unsigned long crc = 0xffffffffL;
+	unsigned long crc = _cyclicRedundancyCheck;
 
     for (; it != dataEnd; it++)
     {
@@ -86,5 +87,10 @@ void Chunk::UpdateCRC()
     
 	unsigned long newCRC = crc ^ 0xffffffffL;
 	cout << "new crc: " << newCRC << endl;
+	printf("crc_table[0]:\t%08x\n", crc_table[0]);
+	printf("crc_table[1]:\t%08x\n", crc_table[1]);
+	printf("crc_table[254]:\t%08x\n", crc_table[254]);
+	printf("crc_table[255]:\t%08x\n", crc_table[255]);
+	printf("crc_table[256]:\t%08x\n", crc_table[256]);
 }
 

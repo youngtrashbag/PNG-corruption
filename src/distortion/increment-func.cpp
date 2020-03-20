@@ -20,7 +20,7 @@ void Chunk::Increment(int value)
 	// dataEnd is the first byte of the crc. it will stop editing before this is reached
 	for(; it != dataEnd; it++)
 	{
-		*it += value;
+		*(it) += value;
 	}
 
 	this->UpdateCRC();
