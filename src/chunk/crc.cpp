@@ -44,6 +44,7 @@ void Chunk::UpdateCRC()
 	
 	unsigned int dataLen = dataEnd - it;
 
+	/*
 	//part 1
 	unsigned long crc_table[256];
 	unsigned long c;
@@ -58,11 +59,11 @@ void Chunk::UpdateCRC()
             //if c != 0 then true
             if (c & 1)
             {
-                /*
-                * hex: 0xedb88320
-                * bin: ‭1110'1101'1011'1000'1000'0011'0010'0000‬
-                * dec: ‭3'988'292'384‬
-                */
+                //
+                // * hex: 0xedb88320
+                // * bin: ‭1110'1101'1011'1000'1000'0011'0010'0000‬
+                // * dec: ‭3'988'292'384‬
+                //
 			   // what does this number mean ????
                 c = 0xedb88320L ^ (c >> 1);
             }
@@ -92,5 +93,6 @@ void Chunk::UpdateCRC()
 	printf("crc_table[254]:\t%08x\n", crc_table[254]);
 	printf("crc_table[255]:\t%08x\n", crc_table[255]);
 	printf("crc_table[256]:\t%08x\n", crc_table[256]);
+	*/
 }
 
