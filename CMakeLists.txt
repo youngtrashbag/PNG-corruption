@@ -9,6 +9,8 @@ set(SRC_FILES_AI
 	src/increment.cpp
 	src/header.h
 	src/func.cpp
+	src/argument/argument.h
+	src/argument/argument.cpp
 	src/chunk/chunk.h
 	src/chunk/chunk.cpp
 	src/chunk/crc.cpp

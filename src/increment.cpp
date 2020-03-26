@@ -5,6 +5,7 @@
  */
 
 #include "header.h"
+#include "argument/argument.h"
 #include "chunk/chunk.h"
 
 using namespace std;
@@ -25,6 +26,9 @@ int main(int argc, char* argv[])
 
 		file.close();
 	}
+
+	// processing the arguments
+	ProcessArgs(argc, argv);
 
 	//create and open filestream as binary
 	ifstream imageFile;
