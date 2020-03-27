@@ -28,7 +28,30 @@ int main(int argc, char* argv[])
 	}
 
 	// processing the arguments
-	ProcessArgs(argc, argv);
+	ArgProc::init(argc, argv);
+
+	if(ArgProc::PrintHelp())
+	{
+		exit;
+	}
+
+	if(ArgProc::GetFilename() == ""
+		|| ArgProc::GetOutputFilename() == "")
+	{
+		cout << "You need to Enter a Filename and Output.\n -h for more info" << endl;
+		exit;
+	}
+
+	if(ArgProc::GetIncrement() == 0)
+	{
+		cout << "Please Enter a Value for Incrementation\n -h for more info" << endl;
+		exit;
+	}
+	else if(ArgProc::GetShift() == 0 && ArgProc::GetIncrement() == 0)
+	{
+		cout << "Please Enter a Value for Shifting\n -h for more info" << endl;
+		exit;
+	}
 
 	//create and open filestream as binary
 	ifstream imageFile;
@@ -52,7 +75,7 @@ int main(int argc, char* argv[])
 	char chunkType[] = {'I', 'D', 'A', 'T', '\0'};
 	Chunk* idatChunk = new Chunk(chunkType, imageFile);
 
-	GetChunkInfo(*idatChunk);
+	ArgProc::PrintInfo(*idatChunk);
 
 	idatChunk->Increment(0);
 

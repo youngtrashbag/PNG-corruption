@@ -118,7 +118,7 @@ unsigned int Chunk::LoadLength()
 
 
 // Display the Infos of a Chunk.
-void GetChunkInfo(Chunk &pChunk)
+void PrintChunkInfo(Chunk &pChunk)
 {
 	cout << "Chunk Type:\t\t" << pChunk.GetType() << endl;
 	cout << "Chunk Length:\t\t" << pChunk.GetLength() << endl;

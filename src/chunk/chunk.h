@@ -6,8 +6,6 @@
  * 	Header File for Chunk related functions.
  */
 
-#include "../header.h"
-
 class Chunk
 {
 	private:
