@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.13)
-project(image-corruption)
+project(PNG-corruption)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_COMPILER clang++)
@@ -17,15 +17,5 @@ set(SRC_FILES_AI
 	src/distortion/increment-func.cpp
 	)
 
-# source files for ASCII Shift
-# set(SRC_FILES_AS
-# 	src/shift.cpp
-# 	src/header.h
-# 	src/func.cpp
-# 	src/chunk/chunk.h
-# 	src/chunk/chunk.cpp
-# 	)
-
-add_executable(ascii-increment ${SRC_FILES_AI})
-# add_executable(ascii-shift ${SRC_FILES_AS})
+add_executable(${PROJECT_NAME} ${SRC_FILES_AI})
 
