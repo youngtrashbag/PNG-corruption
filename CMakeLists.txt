@@ -5,8 +5,8 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_COMPILER clang++)
 
 # source files for ASCII Increment
-set(SRC_FILES_AI
-	src/increment.cpp
+set(SRC_FILES
+	src/main.cpp
 	src/header.h
 	src/func.cpp
 	src/argument/argument.h
@@ -14,8 +14,7 @@ set(SRC_FILES_AI
 	src/chunk/chunk.h
 	src/chunk/chunk.cpp
 	src/chunk/crc.cpp
-	src/distortion/increment-func.cpp
 	)
 
-add_executable(${PROJECT_NAME} ${SRC_FILES_AI})
+add_executable(${PROJECT_NAME} ${SRC_FILES})
 
