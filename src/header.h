@@ -11,6 +11,10 @@
 #include <algorithm>
 #include <cstring>
 
+// local header files
+//#include "argument/argument.h"
+//#include "chunk/chunk.h"
+
 // defines
 #define IMAGE_1 "sample.png"
 #define IMAGE_2 "png.png"

@@ -6,6 +6,15 @@
  * 	Header File for Chunk related functions.
  */
 
+#pragma once
+
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <cstring>
+#include <vector>
+#include <iterator>
+
 class Chunk
 {
 	private:
@@ -48,6 +57,4 @@ class Chunk
 		// distortion funcs
 		void Increment(int value);
 };
-
-void GetChunkInfo(Chunk &pChunk);
 

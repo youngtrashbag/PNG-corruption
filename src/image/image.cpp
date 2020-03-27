@@ -6,6 +6,8 @@
  * 	Code File Containting Functions of Image Class.
  */
 
+#include "image.h"
+
 using namespace std;
 
 Image::Image(string pFilename, ifstream &pFile);

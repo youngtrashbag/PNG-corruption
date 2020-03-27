@@ -6,26 +6,31 @@
  * 		Header File for argument parsing.
  */
 
+#pragma once
+
+#include <iostream>
+#include <string>
+#include <cstring>
 #include "../chunk/chunk.h"
 
 class ArgProc {
 	private:
 		// ctor private, becuase static
-		ArgProc() {};
-		static bool _help;
-		static bool _info;
-		static std::string _file;
-		static std::string _output;
-		static int _increment;
-		static int _shift;
+		bool _help;
+		bool _info;
+		std::string _file;
+		std::string _output;
+		int _increment;
+		int _shift;
 
 	public:
-		static void init(int argc, char* argv[]);
-		static bool PrintHelp();
-		static void PrintInfo(Chunk pChunk);
-		static std::string GetFilename();
-		static std::string GetOutputFilename();
-		static int GetIncrement();
-		static int GetShift();
+		//static ArgProc init(int argc, char* argv[]);
+		ArgProc(int argc, char* argv[]);
+		bool PrintHelp();
+		void PrintChunkInfo(Chunk* pChunk);
+		std::string GetFilename();
+		std::string GetOutputFilename();
+		int GetIncrement();
+		int GetShift();
 };
 

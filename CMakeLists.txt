@@ -14,6 +14,7 @@ set(SRC_FILES
 	src/chunk/chunk.h
 	src/chunk/chunk.cpp
 	src/chunk/crc.cpp
+	src/chunk/distortions.cpp
 	)
 
 add_executable(${PROJECT_NAME} ${SRC_FILES})

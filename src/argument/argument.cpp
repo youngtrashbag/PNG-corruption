@@ -10,11 +10,14 @@
 
 using namespace std;
 
-static void ArgProc::init(int argc, char* argv[]);
+ArgProc::ArgProc(int argc, char* argv[])
 {
-	bool help = false, info = false;
-	string file = "", output = "";
-	int increment = 0, shift = 0;
+	_help = false;
+	_info = false;
+	_file = "";
+	_output = "";
+	_increment = 0;
+	_shift = 0;
 
 	for(int argcount = 1; argcount < argc; argcount++)
 	{
@@ -24,46 +27,44 @@ static void ArgProc::init(int argc, char* argv[]);
 			|| strcmp(argv[argcount], "--help") == 0
 			|| argc == 1)
 		{
-			help = true;
+			_help = true;
 		}
 
 		if(strcmp(argv[argcount], "-i") == 0
 			|| strcmp(argv[argcount], "--info") == 0)
 		{
-			info = true;
+			_info = true;
 		}
 
 		if(strcmp(argv[argcount], "-f") == 0
 			|| strcmp(argv[argcount], "--file") == 0)
 		{
 			if(argcount + 1 <= argc)
-				file = argv[argcount + 1];
+				_file = argv[argcount + 1];
 		}
 
 		if(strcmp(argv[argcount], "-o") == 0
 			|| strcmp(argv[argcount], "--out") == 0)
 		{
 			if(argcount + 1 <= argc)
-				output = argv[argcount + 1];
+				_output = argv[argcount + 1];
 		}
 
 		if(strcmp(argv[argcount], "--increment") == 0)
 		{
 			if(argcount + 1 < argc)
-				increment = atoi(argv[argcount + 1]);
+				_increment = atoi(argv[argcount + 1]);
 		}
 
 		if(strcmp(argv[argcount], "--shift") == 0)
 		{
 			if(argcount + 1 < argc)
-				shift = atoi(argv[argcount + 1]);
+				_shift = atoi(argv[argcount + 1]);
 		}
 	}
-
-
 }
 
-static bool ArgProc::PrintHelp()
+bool ArgProc::PrintHelp()
 {
 	if(_help)
 	{
@@ -78,15 +79,21 @@ static bool ArgProc::PrintHelp()
 	}
 }
 
-static void PrintInfo(Chunk pChunk)
+void ArgProc::PrintChunkInfo(Chunk* pChunk)
 {
 	if(_info)
 	{
-		pChunk->PrintChunkInfo();
+		cout << "Chunk Type:\t\t" << pChunk->GetType() << endl;
+		cout << "Chunk Length:\t\t" << pChunk->GetLength() << endl;
+		cout << "Chunk CRC:\t\t" << pChunk->GetCRC() << endl;
+		printf("Chunk CRC as hex:\t%08x\n", pChunk->GetCRC());
+
+		// testing things
+		cout << "sizeof chunk object:\t" << sizeof pChunk << endl;
 	}
 }
 
-static string ArgProc::GetFilename()
+string ArgProc::GetFilename()
 {
 	if(_file != "")
 	{
@@ -94,7 +101,7 @@ static string ArgProc::GetFilename()
 	}
 }
 
-static string ArgProc::GetOutputFilename()
+string ArgProc::GetOutputFilename()
 {
 	if(_output != "")
 	{
@@ -102,21 +109,21 @@ static string ArgProc::GetOutputFilename()
 	}
 }
 
-static int ArgProc::GetIncrement()
+int ArgProc::GetIncrement()
 {
 	if(_increment != 0)
 	{
-		cout << "increment: " << increment << endl;
+		cout << "increment: " << _increment << endl;
 	}
 	
 	return _increment;
 }
 
-static int ArgProc::GetShift()
+int ArgProc::GetShift()
 {
 	if(_shift != 0)
 	{
-		cout << "shift: " << shift << endl;
+		cout << "shift: " << _shift << endl;
 	}
 
 	return _shift;

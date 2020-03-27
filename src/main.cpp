@@ -5,8 +5,8 @@
  */
 
 #include "header.h"
-#include "argument/argument.h"
 #include "chunk/chunk.h"
+#include "argument/argument.h"
 
 using namespace std;
 
@@ -28,26 +28,26 @@ int main(int argc, char* argv[])
 	}
 
 	// processing the arguments
-	ArgProc::init(argc, argv);
+	ArgProc ArgumentProcessor = ArgProc(argc, argv);
 
-	if(ArgProc::PrintHelp())
+	if(ArgumentProcessor.PrintHelp())
 	{
 		exit;
 	}
 
-	if(ArgProc::GetFilename() == ""
-		|| ArgProc::GetOutputFilename() == "")
+	if(ArgumentProcessor.GetFilename() == ""
+		|| ArgumentProcessor.GetOutputFilename() == "")
 	{
 		cout << "You need to Enter a Filename and Output.\n -h for more info" << endl;
 		exit;
 	}
 
-	if(ArgProc::GetIncrement() == 0)
+	if(ArgumentProcessor.GetIncrement() == 0)
 	{
 		cout << "Please Enter a Value for Incrementation\n -h for more info" << endl;
 		exit;
 	}
-	else if(ArgProc::GetShift() == 0 && ArgProc::GetIncrement() == 0)
+	else if(ArgumentProcessor.GetShift() == 0 && ArgumentProcessor.GetIncrement() == 0)
 	{
 		cout << "Please Enter a Value for Shifting\n -h for more info" << endl;
 		exit;
@@ -75,7 +75,7 @@ int main(int argc, char* argv[])
 	char chunkType[] = {'I', 'D', 'A', 'T', '\0'};
 	Chunk* idatChunk = new Chunk(chunkType, imageFile);
 
-	ArgProc::PrintInfo(*idatChunk);
+	ArgumentProcessor.PrintChunkInfo(idatChunk);
 
 	idatChunk->Increment(0);
 

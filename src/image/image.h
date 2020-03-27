@@ -6,7 +6,10 @@
  * 	Header File of Image Class.
  */
 
-#include "../header.h"
+#pragma once
+
+#include <string>
+#include <vector>
 
 class Image
 {
