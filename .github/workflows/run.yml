@@ -1,4 +1,4 @@
-name: run increment
+name: run
 
 on: [push]
 
@@ -13,6 +13,6 @@ jobs:
       run: cmake .
     - name: make
       run: make
-    - name: run increment
-      run: ./ascii-increment ./bin/png.png
+    - name: run PNG-corruption
+      run: ./PNG-corruption --file ./bin/png.png --output ./bin/out.png
       
