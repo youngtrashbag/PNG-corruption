@@ -30,27 +30,33 @@ int main(int argc, char* argv[])
 	// processing the arguments
 	ArgProc ArgumentProcessor = ArgProc(argc, argv);
 
-	if(ArgumentProcessor.PrintHelp())
+	if(ArgumentProcessor.GetHelp())
 	{
-		exit;
+		ArgumentProcessor.PrintHelp();
+		exit(101);
 	}
 
-	if(ArgumentProcessor.GetFilename() == ""
-		|| ArgumentProcessor.GetOutputFilename() == "")
+	if(ArgumentProcessor.GetFilename() == "")
 	{
-		cout << "You need to Enter a Filename and Output.\n -h for more info" << endl;
-		exit;
+		cout << "You need to Enter a Filename.\n -h for more info" << endl;
+		exit(102);
+	}
+
+	if(ArgumentProcessor.GetOutputFilename() == "")
+	{
+		cout << "You need to Enter a Output.\n -h for more info" << endl;
+		exit(103);
 	}
 
 	if(ArgumentProcessor.GetIncrement() == 0)
 	{
 		cout << "Please Enter a Value for Incrementation\n -h for more info" << endl;
-		exit;
+		exit(104);
 	}
 	else if(ArgumentProcessor.GetShift() == 0 && ArgumentProcessor.GetIncrement() == 0)
 	{
 		cout << "Please Enter a Value for Shifting\n -h for more info" << endl;
-		exit;
+		exit(105);
 	}
 
 	//create and open filestream as binary
@@ -75,7 +81,10 @@ int main(int argc, char* argv[])
 	char chunkType[] = {'I', 'D', 'A', 'T', '\0'};
 	Chunk* idatChunk = new Chunk(chunkType, imageFile);
 
-	ArgumentProcessor.PrintChunkInfo(idatChunk);
+	if(ArgumentProcessor.GetInfo())
+	{
+		ArgumentProcessor.PrintChunkInfo(idatChunk);
+	}
 
 	idatChunk->Increment(0);
 

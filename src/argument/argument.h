@@ -26,9 +26,11 @@ class ArgProc {
 	public:
 		//static ArgProc init(int argc, char* argv[]);
 		ArgProc(int argc, char* argv[]);
-		bool PrintHelp();
+		void PrintHelp();
 		void PrintChunkInfo(Chunk* pChunk);
 		std::string GetFilename();
+		bool GetHelp();
+		bool GetInfo();
 		std::string GetOutputFilename();
 		int GetIncrement();
 		int GetShift();

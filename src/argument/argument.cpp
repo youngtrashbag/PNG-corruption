@@ -21,7 +21,7 @@ ArgProc::ArgProc(int argc, char* argv[])
 
 	for(int argcount = 1; argcount < argc; argcount++)
 	{
-		cout << argv[argcount] << endl;
+		//cout << argv[argcount] << endl;	// prints every argument on screen for debugging
 
 		if(strcmp(argv[argcount], "-h") == 0
 			|| strcmp(argv[argcount], "--help") == 0
@@ -64,68 +64,55 @@ ArgProc::ArgProc(int argc, char* argv[])
 	}
 }
 
-bool ArgProc::PrintHelp()
+void ArgProc::PrintHelp()
 {
-	if(_help)
-	{
-		// TODO: display help dialog
-		cout << " -h\t--help\t\tDisplay this Dialog" << endl;
-		cout << " -i\t--info\t\tDisplay the Information of IDAT Chunk" << endl;
-		cout << " -f\t--file <i.png>\tEnter the file you want to Corrupt" << endl;
-		cout << " -o\t--out <i.png>\tEnter a name for the Output file" << endl;
-		cout << " --increment <number>\tEnter the Amount of Incrementations to the";
-		cout << " individual bytes in the file" << endl;
-		cout << " --shift <number>\tEnter the Amount of Positions, the bytes should be shifted" << endl;
-	}
+	cout << " -h\t--help\t\tDisplay this Dialog" << endl;
+	cout << " -i\t--info\t\tDisplay the Information of IDAT Chunk" << endl;
+	cout << " -f\t--file <i.png>\tEnter the file you want to Corrupt" << endl;
+	cout << " -o\t--out <i.png>\tEnter a name for the Output file" << endl;
+	cout << " --increment <number>\tEnter the Amount of Incrementations to the";
+	cout << " individual bytes in the file" << endl;
+	cout << " --shift <number>\tEnter the Amount of Positions, the bytes should be shifted" << endl;
 }
 
 void ArgProc::PrintChunkInfo(Chunk* pChunk)
 {
-	if(_info)
-	{
-		cout << "Chunk Type:\t\t" << pChunk->GetType() << endl;
-		cout << "Chunk Length:\t\t" << pChunk->GetLength() << endl;
-		cout << "Chunk CRC:\t\t" << pChunk->GetCRC() << endl;
-		printf("Chunk CRC as hex:\t%08x\n", pChunk->GetCRC());
+	cout << "Chunk Type:\t\t" << pChunk->GetType() << endl;
+	cout << "Chunk Length:\t\t" << pChunk->GetLength() << endl;
+	cout << "Chunk CRC:\t\t" << pChunk->GetCRC() << endl;
+	printf("Chunk CRC as hex:\t%08x\n", pChunk->GetCRC());
 
-		// testing things
-		cout << "sizeof chunk object:\t" << sizeof pChunk << endl;
-	}
+	// testing things
+	cout << "sizeof chunk object:\t" << sizeof pChunk << endl;
+}
+
+bool ArgProc::GetHelp()
+{
+	return _help;
+}
+
+bool ArgProc::GetInfo()
+{
+	return _info;
 }
 
 string ArgProc::GetFilename()
 {
-	if(_file != "")
-	{
-		cout << "filename: " << _file << endl;
-	}
+	return _file;
 }
 
 string ArgProc::GetOutputFilename()
 {
-	if(_output != "")
-	{
-		cout << "output filename: " << _output << endl;
-	}
+	return _output;
 }
 
 int ArgProc::GetIncrement()
 {
-	if(_increment != 0)
-	{
-		cout << "increment: " << _increment << endl;
-	}
-	
 	return _increment;
 }
 
 int ArgProc::GetShift()
 {
-	if(_shift != 0)
-	{
-		cout << "shift: " << _shift << endl;
-	}
-
 	return _shift;
 }
 
