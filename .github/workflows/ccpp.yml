@@ -1,4 +1,4 @@
-name: usual build
+name: build & run
 
 on: [push]
 
@@ -13,3 +13,16 @@ jobs:
       run: cmake .
     - name: make
       run: make
+
+  run:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: cmake
+      run: cmake .
+    - name: make
+      run: make
+    - name: run PNG-corruption
+      run: ./PNG-corruption --file ./bin/png.png --output ./bin/out.png
