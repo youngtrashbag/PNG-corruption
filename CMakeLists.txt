@@ -17,5 +17,8 @@ set(SRC_FILES
 	src/chunk/distortions.cpp
 	)
 
-add_executable(${PROJECT_NAME} ${SRC_FILES})
+# make string to lower for executable filename
+string(TOLOWER ${PROJECT_NAME} BIN_NAME)
+
+add_executable(${BIN_NAME} ${SRC_FILES})
 

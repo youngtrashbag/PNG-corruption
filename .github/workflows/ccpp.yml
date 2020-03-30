@@ -24,5 +24,5 @@ jobs:
       run: cmake .
     - name: make
       run: make
-    - name: run PNG-corruption
-      run: ./PNG-corruption --file ./bin/png.png --output ./bin/out.png
+    - name: run png-corruption
+      run: ./png-corruption --file ./bin/png.png --output ./bin/out.png --increment 1 -i

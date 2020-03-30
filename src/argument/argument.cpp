@@ -44,7 +44,7 @@ ArgProc::ArgProc(int argc, char* argv[])
 		}
 
 		if(strcmp(argv[argcount], "-o") == 0
-			|| strcmp(argv[argcount], "--out") == 0)
+			|| strcmp(argv[argcount], "--output") == 0)
 		{
 			if(argcount + 1 <= argc)
 				_output = argv[argcount + 1];
@@ -108,7 +108,8 @@ string ArgProc::GetOutputFilename()
 
 int ArgProc::GetIncrement()
 {
-	return _increment;
+	//return _increment;
+	return 1;
 }
 
 int ArgProc::GetShift()

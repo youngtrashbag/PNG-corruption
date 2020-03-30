@@ -48,6 +48,7 @@ int main(int argc, char* argv[])
 		exit(103);
 	}
 
+	//TODO: do this so it if --increment and --shift is forgotten print that both are forgotten
 	if(ArgumentProcessor.GetIncrement() == 0)
 	{
 		cout << "Please Enter a Value for Incrementation\n -h for more info" << endl;
@@ -84,6 +85,7 @@ int main(int argc, char* argv[])
 	if(ArgumentProcessor.GetInfo())
 	{
 		ArgumentProcessor.PrintChunkInfo(idatChunk);
+		exit(106);
 	}
 
 	idatChunk->Increment(0);
@@ -91,8 +93,7 @@ int main(int argc, char* argv[])
 	imageFile.close();
 
 	ofstream newImage;
-	newFilename = "inc-" + filename;
-	newImage.open(newFilename, ios::binary);
+	newImage.open(ArgumentProcessor.GetOutputFilename(), ios::binary);
 
 	//copy contents from vector to file
 	copy(idatChunk->GetBufferBeg(), idatChunk->GetBufferEnd(), ostreambuf_iterator<char>(newImage));
