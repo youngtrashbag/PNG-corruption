@@ -1,0 +1,122 @@
+name: tests
+
+on: [push]
+
+jobs:
+  help:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: cmake
+      run: cmake .
+    - name: make
+      run: make
+    - name: run png-corruption
+      run: ./png-corruption -h
+
+  input and output:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: cmake
+      run: cmake .
+    - name: make
+      run: make
+    - name: run png-corruption
+      run: ./png-corruption -f ./bin/png.png -o ./out.png
+
+  only input:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: cmake
+      run: cmake .
+    - name: make
+      run: make
+    - name: run png-corruption
+      run: ./png-corruption -f ./bin/png.png
+
+  only output:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: cmake
+      run: cmake .
+    - name: make
+      run: make
+    - name: run png-corruption
+      run: ./png-corruption -o ./out.png
+
+  output and input:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: cmake
+      run: cmake .
+    - name: make
+      run: make
+    - name: run png-corruption
+      run: ./png-corruption -o ./out.png -f ./bin/png.png
+
+  incrementation:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: cmake
+      run: cmake .
+    - name: make
+      run: make
+    - name: run png-corruption
+      run: ./png-corruption -f ./bin/png.png -o ./out.png --increment 1
+
+  shifting:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: cmake
+      run: cmake .
+    - name: make
+      run: make
+    - name: run png-corruption
+      run: ./png-corruption -f ./bin/png.png -o ./out.png --shift 1
+
+  incrementation and shifting:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: cmake
+      run: cmake .
+    - name: make
+      run: make
+    - name: run png-corruption
+      run: ./png-corruption -f ./bin/png.png -o ./out.png --increment 1 --shift 1
+
+  shifting and incrementation:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: cmake
+      run: cmake .
+    - name: make
+      run: make
+    - name: run png-corruption
+      run: ./png-corruption -f ./bin/png.png -o ./out.png --shift 1 --increment 1
+

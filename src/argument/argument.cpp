@@ -30,8 +30,7 @@ ArgProc::ArgProc(int argc, char* argv[])
 			_help = true;
 		}
 
-		if(strcmp(argv[argcount], "-i") == 0
-			|| strcmp(argv[argcount], "--info") == 0)
+		if(strcmp(argv[argcount], "--info") == 0)
 		{
 			_info = true;
 		}
@@ -67,9 +66,9 @@ ArgProc::ArgProc(int argc, char* argv[])
 void ArgProc::PrintHelp()
 {
 	cout << " -h\t--help\t\tDisplay this Dialog" << endl;
-	cout << " -i\t--info\t\tDisplay the Information of IDAT Chunk" << endl;
 	cout << " -f\t--file <i.png>\tEnter the file you want to Corrupt" << endl;
 	cout << " -o\t--out <i.png>\tEnter a name for the Output file" << endl;
+	cout << " --info\t\t\tDisplay the Information of IDAT Chunk" << endl;
 	cout << " --increment <number>\tEnter the Amount of Incrementations to the";
 	cout << " individual bytes in the file" << endl;
 	cout << " --shift <number>\tEnter the Amount of Positions, the bytes should be shifted" << endl;
@@ -83,7 +82,7 @@ void ArgProc::PrintChunkInfo(Chunk* pChunk)
 	printf("Chunk CRC as hex:\t%08x\n", pChunk->GetCRC());
 
 	// testing things
-	cout << "sizeof chunk object:\t" << sizeof pChunk << endl;
+	cout << "sizeof chunk object:\t" << sizeof &pChunk << endl;
 }
 
 bool ArgProc::GetHelp()

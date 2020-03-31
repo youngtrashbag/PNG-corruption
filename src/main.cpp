@@ -12,57 +12,52 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-	string filename = IMAGE_1;
-	string newFilename;
-
-	if(argc > 1)
-	{
-		ifstream file(argv[1]);
-
-		if(file.good())
-		{
-			filename = argv[1];
-		}
-
-		file.close();
-	}
-
 	// processing the arguments
 	ArgProc ArgumentProcessor = ArgProc(argc, argv);
 
 	if(ArgumentProcessor.GetHelp())
 	{
 		ArgumentProcessor.PrintHelp();
-		exit(101);
+		return 0;
 	}
 
 	if(ArgumentProcessor.GetFilename() == "")
 	{
 		cout << "You need to Enter a Filename.\n -h for more info" << endl;
-		exit(102);
+		return 0;
 	}
 
 	if(ArgumentProcessor.GetOutputFilename() == "")
 	{
 		cout << "You need to Enter a Output.\n -h for more info" << endl;
-		exit(103);
+		return 0;
 	}
 
 	//TODO: do this so it if --increment and --shift is forgotten print that both are forgotten
 	if(ArgumentProcessor.GetIncrement() == 0)
 	{
 		cout << "Please Enter a Value for Incrementation\n -h for more info" << endl;
-		exit(104);
+		return 0;
 	}
 	else if(ArgumentProcessor.GetShift() == 0 && ArgumentProcessor.GetIncrement() == 0)
 	{
 		cout << "Please Enter a Value for Shifting\n -h for more info" << endl;
-		exit(105);
+		return 0;
 	}
 
 	//create and open filestream as binary
 	ifstream imageFile;
-	imageFile.open(filename, ios::binary);
+	imageFile.open(ArgumentProcessor.GetFilename(), ios::binary);
+
+	if(!imageFile.good())
+	{
+		imageFile.close();
+		
+		cout << "The Input File you selected is not valid." << endl;
+
+		return 0;
+	}
+	
 
 	/*cout << "Opening file: " << filename << endl;
 
@@ -80,15 +75,16 @@ int main(int argc, char* argv[])
 	newImage.close();*/
 
 	char chunkType[] = {'I', 'D', 'A', 'T', '\0'};
-	Chunk* idatChunk = new Chunk(chunkType, imageFile);
+	Chunk idatChunk = Chunk(chunkType, imageFile);
 
 	if(ArgumentProcessor.GetInfo())
 	{
-		ArgumentProcessor.PrintChunkInfo(idatChunk);
-		exit(106);
+		ArgumentProcessor.PrintChunkInfo(&idatChunk);
+		return 0;
 	}
 
-	idatChunk->Increment(0);
+	cout << "incrementing by: " << ArgumentProcessor.GetIncrement() << endl;
+	idatChunk.Increment(ArgumentProcessor.GetIncrement());
 
 	imageFile.close();
 
@@ -96,7 +92,7 @@ int main(int argc, char* argv[])
 	newImage.open(ArgumentProcessor.GetOutputFilename(), ios::binary);
 
 	//copy contents from vector to file
-	copy(idatChunk->GetBufferBeg(), idatChunk->GetBufferEnd(), ostreambuf_iterator<char>(newImage));
+	copy(idatChunk.GetBufferBeg(), idatChunk.GetBufferEnd(), ostreambuf_iterator<char>(newImage));
 
 	newImage.close();
 
