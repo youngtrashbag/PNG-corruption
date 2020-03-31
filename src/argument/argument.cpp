@@ -107,8 +107,7 @@ string ArgProc::GetOutputFilename()
 
 int ArgProc::GetIncrement()
 {
-	//return _increment;
-	return 1;
+	return _increment;
 }
 
 int ArgProc::GetShift()
