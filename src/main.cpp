@@ -80,9 +80,9 @@ int main(int argc, char* argv[])
 	if(ArgumentProcessor.GetInfo())
 	{
 		ArgumentProcessor.PrintChunkInfo(&idatChunk);
-		return 0;
 	}
 
+	// displaying info for user what is happening
 	cout << "incrementing by: " << ArgumentProcessor.GetIncrement() << endl;
 	idatChunk.Increment(ArgumentProcessor.GetIncrement());
 

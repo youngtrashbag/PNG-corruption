@@ -17,7 +17,7 @@ Focused on IDAT Chunk.
 3. `make`
 4. Run the newly created binary (in case you don't use an image, the default image will be used)  
 `./png-corruption`  
-`./png-corruption -f my-image.png -o out.png --increment 1 -i`
+`./png-corruption -f my-image.png -o out.png --info --increment 1`
 
 ## License
 
