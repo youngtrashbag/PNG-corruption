@@ -16,7 +16,7 @@ jobs:
     - name: run png-corruption
       run: ./png-corruption -h
 
-  input and output:
+  input_and_output:
 
     runs-on: ubuntu-latest
     
@@ -29,7 +29,7 @@ jobs:
     - name: run png-corruption
       run: ./png-corruption -f ./bin/png.png -o ./out.png
 
-  only input:
+  only_input:
 
     runs-on: ubuntu-latest
     
@@ -42,7 +42,7 @@ jobs:
     - name: run png-corruption
       run: ./png-corruption -f ./bin/png.png
 
-  only output:
+  only_output:
 
     runs-on: ubuntu-latest
     
@@ -55,7 +55,7 @@ jobs:
     - name: run png-corruption
       run: ./png-corruption -o ./out.png
 
-  output and input:
+  output_and_input:
 
     runs-on: ubuntu-latest
     
@@ -94,7 +94,7 @@ jobs:
     - name: run png-corruption
       run: ./png-corruption -f ./bin/png.png -o ./out.png --shift 1
 
-  incrementation and shifting:
+  incrementation_and_shifting:
 
     runs-on: ubuntu-latest
     
@@ -107,7 +107,7 @@ jobs:
     - name: run png-corruption
       run: ./png-corruption -f ./bin/png.png -o ./out.png --increment 1 --shift 1
 
-  shifting and incrementation:
+  shifting_and_incrementation:
 
     runs-on: ubuntu-latest
     
