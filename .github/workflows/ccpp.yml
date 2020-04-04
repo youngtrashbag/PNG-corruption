@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: cmake
-      run: cmake ./corruption/corruption/corruption/corruption
+      run: cmake ./corruption
     - name: make
       run: make
 
@@ -21,7 +21,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: cmake
-      run: cmake ./corruption/corruption
+      run: cmake ./corruption
     - name: make
       run: make
     - name: run png-corruption
