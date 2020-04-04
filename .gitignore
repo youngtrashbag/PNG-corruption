@@ -56,7 +56,5 @@ _deps
 
 # custom config
 bin/
-!bin/*.png
-bin/inc-*.png
-
+!corruption/bin/*.png
 /build/
